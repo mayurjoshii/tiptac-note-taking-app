@@ -1,0 +1,23 @@
+.container{
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.navigationHeader{
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.noteListContainer{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.noteContainer{
+    border-radius: 4px;
+    background-color: #eee;
+    border: 1px solid #aaa;
+}

@@ -1,0 +1,18 @@
+.menuBarContainer{
+    display: flex;
+    gap: 4px;
+}
+
+.menuBarButton{
+    padding: 2px 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.isActive{
+    color: red;
+}
+
+.tiptapEditorContainer{
+    height: 100%;
+}
