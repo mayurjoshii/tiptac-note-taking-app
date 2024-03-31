@@ -1,10 +1,5 @@
 import React from 'react';
 import style from './style.css';
-import { RouteComponentProps } from 'react-router';
-// import { useDispatch,  } from 'react-redux';
-// import { useTodoActions } from 'app/actions';
-// import { RootState } from 'app/reducers';
-// import { TodoModel } from 'app/models';
 import { Header } from 'app/components/header';
 import { Main, Sidebar } from 'app/components';
 import { useSelector } from 'react-redux';
@@ -20,11 +15,7 @@ import { RootState } from 'app/reducers';
 //   [TodoModel.Filter.SHOW_COMPLETED]: (todo) => todo.completed
 // };
 
-export namespace App {
-  export interface Props extends RouteComponentProps<void> {}
-}
-
-export const Home = ({ history, location }: App.Props) => {
+export const Home = () => {
   // const dispatch = useDispatch();
   // const todoActions = useTodoActions(dispatch);
   // const { todos, filter } = useSelector((state: RootState) => {
@@ -55,8 +46,8 @@ export const Home = ({ history, location }: App.Props) => {
     return state.notes
   })
 
-  console.log("Curernt notes--", currentNotes)
-  
+  console.log("Current notes--", currentNotes)
+
   return (
     <div className={style.container}>
       <Header />
