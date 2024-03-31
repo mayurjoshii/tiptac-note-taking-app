@@ -6,7 +6,7 @@ import { INote } from 'app/models';
 export namespace NoteActions {
   export enum Type {
     SAVE_NOTE = 'SAVE_NOTE',
-    // EDIT_TODO = 'EDIT_TODO',
+    DELETE_NOTE = 'DELETE_NOTE',
     // DELETE_TODO = 'DELETE_TODO',
     // COMPLETE_TODO = 'COMPLETE_TODO',
     // COMPLETE_ALL = 'COMPLETE_ALL',
@@ -14,6 +14,7 @@ export namespace NoteActions {
   }
 
   export const saveNote = createAction<INote>(Type.SAVE_NOTE);
+  export const deleteNote = createAction<Pick<INote, 'id'>>(Type.DELETE_NOTE);
   // export const editTodo = createAction<PartialPick<TodoModel, 'id'>>(Type.EDIT_TODO);
   // export const deleteTodo = createAction<TodoModel['id']>(Type.DELETE_TODO);
   // export const completeTodo = createAction<TodoModel['id']>(Type.COMPLETE_TODO);

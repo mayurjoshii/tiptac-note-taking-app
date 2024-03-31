@@ -55,20 +55,7 @@ const MenuBar = () => {
 
 const extensions = [
   StarterKit,
-
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
-  // TextStyle.configure({ types: [ListItem.name] }),
-  /* StarterKit.configure({
-    bulletList: {
-      keepMarks: true,
-      keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-    },
-    orderedList: {
-      keepMarks: true,
-      keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-    },
-  }), */
-
 ]
 
 export interface ITipTapEditorProps {
@@ -76,21 +63,28 @@ export interface ITipTapEditorProps {
   setContent: Dispatch<SetStateAction<string>>
 }
 
-const SaveButton = () => {
+interface ISaveButtonProps {
+  title: string
+}
+
+const SaveButton = (props: ISaveButtonProps) => {
+  const { title } = props
+
   const { editor } = useCurrentEditor()
 
   const dispatch = useDispatch()
   const { saveNote } = useNoteActions(dispatch)
 
   const handleNewNoteSave = (content?: string) => {
-    if(content){
+    if (content) {
       saveNote({
         id: uuidv4(),
-        content
+        content,
+        title
       })
     }
   }
-  
+
   return (
     <button onClick={() => handleNewNoteSave(editor?.getHTML())}>
       Save note
@@ -100,6 +94,11 @@ const SaveButton = () => {
 
 export const TiptapEditor = (props: ITipTapEditorProps) => {
   const { content, setContent } = props
+  const [title, setTitle] = React.useState<string>("")
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value)
+  }
 
   return (
     <div className={style.tiptapEditorContainer}>
@@ -111,7 +110,15 @@ export const TiptapEditor = (props: ITipTapEditorProps) => {
         }}
         extensions={extensions}
         content={content}
-        slotBefore={<MenuBar />}
+        slotBefore={
+          <>
+            <MenuBar />
+            <input
+              placeholder="Enter note title here"
+              onChange={handleTitleChange}
+              value={title}
+            />
+          </>}
         onUpdate={({
           editor
         }) => {
@@ -119,7 +126,7 @@ export const TiptapEditor = (props: ITipTapEditorProps) => {
           setContent(editor.getHTML())
         }}
       >
-        <SaveButton />
+        <SaveButton title={title} />
       </EditorProvider>
       <FloatingMenu>This is the floating menu</FloatingMenu>
       {/* <BubbleMenu>This is the bubble menu</BubbleMenu> */}
