@@ -6,6 +6,9 @@ import StarterKit from '@tiptap/starter-kit'
 import Color from '@tiptap/extension-color'
 import TextStyle from '@tiptap/extension-text-style'
 import ListItem from '@tiptap/extension-list-item'
+import { useDispatch } from 'react-redux'
+import { useNoteActions } from 'app/actions'
+import { v4 as uuidv4 } from 'uuid'
 
 const MenuBar = () => {
   const { editor } = useCurrentEditor()
@@ -76,8 +79,20 @@ export interface ITipTapEditorProps {
 const SaveButton = () => {
   const { editor } = useCurrentEditor()
 
+  const dispatch = useDispatch()
+  const { saveNote } = useNoteActions(dispatch)
+
+  const handleNewNoteSave = (content?: string) => {
+    if(content){
+      saveNote({
+        id: uuidv4(),
+        content
+      })
+    }
+  }
+  
   return (
-    <button onClick={() => console.log("Save note--", editor?.getHTML())}>
+    <button onClick={() => handleNewNoteSave(editor?.getHTML())}>
       Save note
     </button>
   )
@@ -91,7 +106,7 @@ export const TiptapEditor = (props: ITipTapEditorProps) => {
       <EditorProvider
         editorProps={{
           attributes: {
-            style: "height:500px;border:1px solid #aaa;border-radius:4px;padding-left:8px;padding-right:8px;"
+            style: "margin-top:20px;height:500px;border:1px solid #aaa;border-radius:4px;padding-left:8px;padding-right:8px;"
           }
         }}
         extensions={extensions}

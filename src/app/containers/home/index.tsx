@@ -7,6 +7,8 @@ import { RouteComponentProps } from 'react-router';
 // import { TodoModel } from 'app/models';
 import { Header } from 'app/components/header';
 import { Main, Sidebar } from 'app/components';
+import { useSelector } from 'react-redux';
+import { RootState } from 'app/reducers';
 
 // const FILTER_VALUES = (Object.keys(TodoModel.Filter) as (keyof typeof TodoModel.Filter)[]).map(
 //   (key) => TodoModel.Filter[key]
@@ -48,6 +50,13 @@ export const Home = ({ history, location }: App.Props) => {
   // const activeCount = React.useMemo(() => todos.filter((todo) => !todo.completed).length, [todos]);
   // const completedCount = React.useMemo(() => todos.filter((todo) => todo.completed).length, [todos]);
 
+  const currentNotes = useSelector((state: RootState) => {
+    console.log("Root state--", state)
+    return state.notes
+  })
+
+  console.log("Curernt notes--", currentNotes)
+  
   return (
     <div className={style.container}>
       <Header />

@@ -3,11 +3,6 @@ import { TiptapEditor } from "../tiptac";
 import style from './main.css';
 // import { v4 as uuidv4 } from 'uuid';
 
-// interface INote {
-//     id: string,
-//     content: string
-// }
-
 // const DATA: INote[] = [
 //     {
 //         id: uuidv4(),
