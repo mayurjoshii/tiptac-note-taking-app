@@ -9,12 +9,11 @@
         height: 32px;
         padding: 4px 16px;
         background-color: #fff;
-        border: 1px solid #ddd;
         transition: all 200ms;
         text-align: left;
         
         &:hover{
-            background-color: #ddd;
+            background-color: #efefef;
         }
     }
 }

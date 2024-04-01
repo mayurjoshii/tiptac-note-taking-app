@@ -1,14 +1,15 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { EditorProvider, FloatingMenu, useCurrentEditor } from '@tiptap/react'
+import { EditorContent, EditorProvider, FloatingMenu, useCurrentEditor, useEditor } from '@tiptap/react'
 import style from './tiptac.css'
 import classNames from 'classnames'
 import StarterKit from '@tiptap/starter-kit'
 import Color from '@tiptap/extension-color'
 import TextStyle from '@tiptap/extension-text-style'
 import ListItem from '@tiptap/extension-list-item'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNoteActions } from 'app/actions'
 import { v4 as uuidv4 } from 'uuid'
+import { RootState } from 'app/reducers'
 
 const MenuBar = () => {
   const { editor } = useCurrentEditor()
@@ -59,8 +60,8 @@ const extensions = [
 ]
 
 export interface ITipTapEditorProps {
-  content: string
-  setContent: Dispatch<SetStateAction<string>>
+  // content: string
+  // setContent: Dispatch<SetStateAction<string>>
 }
 
 interface ISaveButtonProps {
@@ -93,42 +94,58 @@ const SaveButton = (props: ISaveButtonProps) => {
 }
 
 export const TiptapEditor = (props: ITipTapEditorProps) => {
-  const { content, setContent } = props
+  // const { content, setContent } = props
   const [title, setTitle] = React.useState<string>("")
+
+  const editor = useEditor({
+    extensions,
+    content: "<p>Initial content</p>"
+  })
+
+  const { activeNoteId, notes } = useSelector((state: RootState) => {
+    return {
+      notes: state.notes,
+      activeNoteId: state.activeNoteId,
+    }
+  })
+
+
+  const currentSelectedNote = notes.find(item => item.id === activeNoteId)
+
+  React.useEffect(() => {
+    console.log("Changing active noteid")
+    if (currentSelectedNote) {
+      if (editor) {
+        console.log("Setting content");
+
+        editor.commands.setContent(currentSelectedNote.content)
+      }
+    }
+  }, [currentSelectedNote, activeNoteId])
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value)
   }
 
+
   return (
     <div className={style.tiptapEditorContainer}>
-      <EditorProvider
-        editorProps={{
-          attributes: {
-            style: "margin-top:20px;height:500px;border:1px solid #aaa;border-radius:4px;padding-left:8px;padding-right:8px;"
-          }
-        }}
-        extensions={extensions}
-        content={content}
-        slotBefore={
-          <>
-            <MenuBar />
-            <input
-              placeholder="Enter note title here"
-              onChange={handleTitleChange}
-              value={title}
-            />
-          </>}
-        onUpdate={({
-          editor
-        }) => {
-          console.log("Updating--", editor.getHTML())
-          setContent(editor.getHTML())
-        }}
-      >
-        <SaveButton title={title} />
-      </EditorProvider>
-      <FloatingMenu>This is the floating menu</FloatingMenu>
+      <MenuBar />
+      <input
+        placeholder="Enter note title here"
+        onChange={handleTitleChange}
+        value={title}
+      />
+      <EditorContent editor={editor} style={{
+        marginTop: "20px",
+        height: "500px",
+        border: "1px solid #aaa",
+        borderRadius: "4px",
+        paddingLeft: "8px",
+        paddingRight: "8px"
+      }} />
+      <SaveButton title={title} />
+      {/* <FloatingMenu>This is the floating menu</FloatingMenu> */}
       {/* <BubbleMenu>This is the bubble menu</BubbleMenu> */}
 
     </div>

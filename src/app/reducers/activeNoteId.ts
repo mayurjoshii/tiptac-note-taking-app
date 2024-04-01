@@ -2,13 +2,13 @@ import { NoteActions } from "app/actions"
 import { handleActions } from "redux-actions"
 import { RootState } from "."
 
-const initialState: string | null = "12"
+const initialState: string | null = null
 
-export const activeIdReducer = handleActions<RootState.ActiveNoteId, { id: string }>(
+export const activeIdReducer = handleActions<RootState.ActiveNoteId, string>(
  {
   [NoteActions.Type.SET_ACTIVE_NOTE_ID]: (_state, action) => {
-   if (action.payload && action.payload.id) {
-    return action.payload.id
+   if (action.payload && action.payload) {
+    return action.payload
    }
    return null
   },

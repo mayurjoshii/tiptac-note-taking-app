@@ -8,6 +8,7 @@ import { useNoteActions } from "app/actions"
 export const Sidebar = () => {
     const dispatch = useDispatch()
     const { deleteNote } = useNoteActions(dispatch)
+    const { setActiveNoteId } = useNoteActions(dispatch)
 
     const notesList = useSelector((state: RootState) => {
         return state.notes
@@ -17,8 +18,10 @@ export const Sidebar = () => {
 
     }
 
-    const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
         e.stopPropagation()
+        console.log("Setting id", id)
+        setActiveNoteId(id)
     }
 
     const handleDeleteClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
@@ -37,15 +40,15 @@ export const Sidebar = () => {
             <div className={style.noteListContainer}>
                 {
                     !!notesList.length && notesList.map(item => (
-                        <button className={style.noteButton} onClick={() => { console.log("Clicked--", item.content) }}>
+                        <button className={style.noteButton} onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleEditClick(e, item.id)}>
                             <p>
 
                                 {item.title}
                             </p>
                             <div className={style.noteButtonActionContainer}>
-                                <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleEditClick(e)}>
+                                {/* <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleEditClick(e, item.id)}>
                                     <RiEdit2Line />
-                                </button>
+                                </button> */}
                                 <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleDeleteClick(e, item.id)}>
                                     <RiDeleteBin3Line />
                                 </button>
