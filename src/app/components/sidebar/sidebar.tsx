@@ -33,7 +33,6 @@ export const Sidebar = () => {
 
     return (
         <div className={style.container}>
-
             <button onClick={handleNewNoteClick}>
                 Create new note
             </button>
@@ -42,13 +41,9 @@ export const Sidebar = () => {
                     !!notesList.length && notesList.map(item => (
                         <button className={style.noteButton} onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleEditClick(e, item.id)}>
                             <p>
-
                                 {item.title}
                             </p>
                             <div className={style.noteButtonActionContainer}>
-                                {/* <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleEditClick(e, item.id)}>
-                                    <RiEdit2Line />
-                                </button> */}
                                 <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleDeleteClick(e, item.id)}>
                                     <RiDeleteBin3Line />
                                 </button>

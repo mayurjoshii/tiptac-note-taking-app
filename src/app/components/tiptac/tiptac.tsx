@@ -64,37 +64,7 @@ export interface ITipTapEditorProps {
   // setContent: Dispatch<SetStateAction<string>>
 }
 
-interface ISaveButtonProps {
-  title: string
-}
-
-const SaveButton = (props: ISaveButtonProps) => {
-  const { title } = props
-
-  const { editor } = useCurrentEditor()
-
-  const dispatch = useDispatch()
-  const { saveNote } = useNoteActions(dispatch)
-
-  const handleNewNoteSave = (content?: string) => {
-    if (content) {
-      saveNote({
-        id: uuidv4(),
-        content,
-        title
-      })
-    }
-  }
-
-  return (
-    <button onClick={() => handleNewNoteSave(editor?.getHTML())}>
-      Save note
-    </button>
-  )
-}
-
 export const TiptapEditor = (props: ITipTapEditorProps) => {
-  // const { content, setContent } = props
   const [title, setTitle] = React.useState<string>("")
 
   const editor = useEditor({
@@ -102,6 +72,8 @@ export const TiptapEditor = (props: ITipTapEditorProps) => {
     content: "<p>Initial content</p>"
   })
 
+  const dispatch = useDispatch()
+  const { saveNote, updateNote } = useNoteActions(dispatch)
   const { activeNoteId, notes } = useSelector((state: RootState) => {
     return {
       notes: state.notes,
@@ -112,13 +84,34 @@ export const TiptapEditor = (props: ITipTapEditorProps) => {
 
   const currentSelectedNote = notes.find(item => item.id === activeNoteId)
 
+  console.log("Current seelcted--", currentSelectedNote)
   React.useEffect(() => {
     if (!!currentSelectedNote?.id) {
       if (editor) {
         editor.commands.setContent(currentSelectedNote.content)
+        setTitle(currentSelectedNote.title)
       }
     }
-  }, [currentSelectedNote, activeNoteId, editor])
+  }, [activeNoteId, editor])
+
+  React.useEffect(() => {
+    if (editor) {
+      if (currentSelectedNote?.id) {
+        console.log("Updating--", editor.getHTML())
+        updateNote({
+          id: currentSelectedNote.id,
+          content: editor.getHTML(),
+          title
+        })
+      } else {
+        saveNote({
+          id: uuidv4(),
+          content: editor.getHTML(),
+          title
+        })
+      }
+    }
+  }, [editor?.getHTML(), title])
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value)
@@ -139,8 +132,8 @@ export const TiptapEditor = (props: ITipTapEditorProps) => {
         borderRadius: "4px",
         paddingLeft: "8px",
         paddingRight: "8px"
-      }} />
-      <SaveButton title={title} />
+      }}
+      />
       {/* <FloatingMenu>This is the floating menu</FloatingMenu> */}
       {/* <BubbleMenu>This is the bubble menu</BubbleMenu> */}
 

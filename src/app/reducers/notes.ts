@@ -33,6 +33,26 @@ export const noteReducer = handleActions<RootState.NoteListState, INote>(
       }
       return state;
     },
+    [NoteActions.Type.UPDATE_NOTE]: (state, action) => {
+      const copyState = [...state]
+
+      if (action.payload.id) {
+        const noteToUpdateIndex = copyState.findIndex(item => item.id === action.payload.id)
+        if (noteToUpdateIndex < 0) {
+          return state
+        }
+
+        copyState[noteToUpdateIndex] = {
+          ...copyState[noteToUpdateIndex],
+          content: action.payload.content,
+          title: action.payload.title
+        }
+
+        return copyState
+      }
+
+      return state
+    },
     [NoteActions.Type.DELETE_NOTE]: (state, action) => {
       if (action.payload && action.payload.id) {
         const copyState = [...state]
