@@ -120,12 +120,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'assets/index.html',
       minify: {
-        minifyJS: true,
-        minifyCSS: true,
-        removeComments: true,
-        useShortDoctype: true,
-        collapseWhitespace: true,
-        collapseInlineTagWhitespace: true
+        minifyJS: false,
+        minifyCSS: false,
+        removeComments: false,
+        useShortDoctype: false,
+        collapseWhitespace: false,
+        collapseInlineTagWhitespace: false
       },
       append: {
         head: `<script src="//cdn.polyfill.io/v3/polyfill.min.js"></script>`
