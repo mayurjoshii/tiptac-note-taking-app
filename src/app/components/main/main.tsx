@@ -10,7 +10,7 @@ export const Main = () => {
     })
 
     if (!activeNoteId) {
-        return <div>Select a note from sidebar</div>
+        return <div className={style.container}>Select a note from sidebar</div>
     }
 
     return (
