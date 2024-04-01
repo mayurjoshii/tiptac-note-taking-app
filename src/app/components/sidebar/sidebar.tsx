@@ -2,16 +2,19 @@ import { RootState } from "app/reducers"
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import style from './sidebar.css'
-import { RiEdit2Line, RiDeleteBin3Line } from 'react-icons/ri'
+import { RiDeleteBin3Line } from 'react-icons/ri'
 import { useNoteActions } from "app/actions"
 
 export const Sidebar = () => {
     const dispatch = useDispatch()
     const { deleteNote } = useNoteActions(dispatch)
-    const { setActiveNoteId } = useNoteActions(dispatch)
+    const { setActiveNoteId, removeActiveNoteId } = useNoteActions(dispatch)
 
-    const notesList = useSelector((state: RootState) => {
-        return state.notes
+    const { notesList, activeNoteId } = useSelector((state: RootState) => {
+        return {
+            notesList: state.notes,
+            activeNoteId: state.activeNoteId
+        }
     })
 
     const handleNewNoteClick = () => {
@@ -20,7 +23,6 @@ export const Sidebar = () => {
 
     const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
         e.stopPropagation()
-        console.log("Setting id", id)
         setActiveNoteId(id)
     }
 
@@ -29,6 +31,10 @@ export const Sidebar = () => {
         deleteNote({
             id
         })
+
+        if (activeNoteId === id) {
+            removeActiveNoteId()
+        }
     }
 
     return (

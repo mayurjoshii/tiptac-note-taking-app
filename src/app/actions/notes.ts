@@ -20,7 +20,7 @@ export namespace NoteActions {
   export const updateNote = createAction<INote>(Type.UPDATE_NOTE);
   export const deleteNote = createAction<Pick<INote, 'id'>>(Type.DELETE_NOTE);
   export const setActiveNoteId = createAction<string>(Type.SET_ACTIVE_NOTE_ID)
-  export const removeActiveNoteId = createAction<null>(Type.REMOVE_ACTIVE_NOTE_ID)
+  export const removeActiveNoteId = createAction(Type.REMOVE_ACTIVE_NOTE_ID)
   // export const editTodo = createAction<PartialPick<TodoModel, 'id'>>(Type.EDIT_TODO);
   // export const deleteTodo = createAction<TodoModel['id']>(Type.DELETE_TODO);
   // export const completeTodo = createAction<TodoModel['id']>(Type.COMPLETE_TODO);

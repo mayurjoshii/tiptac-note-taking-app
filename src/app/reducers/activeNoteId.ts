@@ -12,11 +12,9 @@ export const activeIdReducer = handleActions<RootState.ActiveNoteId, string>(
    }
    return null
   },
-  // {
-  //  [NoteActions.Type.REMOVE_ACTIVE_NOTE_ID]: (_state, _action) => {
-  //   return null
-  //  }
-  // }
+  [NoteActions.Type.REMOVE_ACTIVE_NOTE_ID]: (_state, _action) => {
+   return null
+  }
  },
  initialState
 )
