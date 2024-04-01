@@ -113,20 +113,16 @@ export const TiptapEditor = (props: ITipTapEditorProps) => {
   const currentSelectedNote = notes.find(item => item.id === activeNoteId)
 
   React.useEffect(() => {
-    console.log("Changing active noteid")
-    if (currentSelectedNote) {
+    if (!!currentSelectedNote?.id) {
       if (editor) {
-        console.log("Setting content");
-
         editor.commands.setContent(currentSelectedNote.content)
       }
     }
-  }, [currentSelectedNote, activeNoteId])
+  }, [currentSelectedNote, activeNoteId, editor])
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value)
   }
-
 
   return (
     <div className={style.tiptapEditorContainer}>

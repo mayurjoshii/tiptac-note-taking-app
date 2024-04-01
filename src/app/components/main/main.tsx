@@ -5,48 +5,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TiptapEditor } from "../tiptac";
 import style from './main.css';
-// import { v4 as uuidv4 } from 'uuid';
-
-// const DATA: INote[] = [
-//     {
-//         id: uuidv4(),
-//         content: '<p>some string here</p>'
-//     },
-//     {
-//         id: uuidv4(),
-//         content: '<p>some string here</p>'
-//     },
-//     {
-//         id: uuidv4(),
-//         content: '<p>some string here</p>'
-//     },
-//     {
-//         id: uuidv4(),
-//         content: '<p>some string here</p>'
-//     },
-//     {
-//         id: uuidv4(),
-//         content: '<p>some string here</p>'
-//     },
-//     {
-//         id: uuidv4(),
-//         content: '<p>some string here</p>'
-//     },
-//     {
-//         id: uuidv4(),
-//         content: '<p>some string here</p>'
-//     },
-//     {
-//         id: uuidv4(),
-//         content: '<p>some string here</p>'
-//     },
-// ]
-
 
 export const Main = () => {
     // const dispatch = useDispatch()
     // const activeNoteId = useNoteActions(dispatch)
-    const { editor } = useCurrentEditor()
     const { activeNoteId } = useSelector((state: RootState) => {
         return {
             notes: state.notes,
@@ -58,10 +20,6 @@ export const Main = () => {
         activeNoteId,
         type: typeof activeNoteId
     })
-
-    const [noteContent, setNoteContent] = React.useState<string>("<p>You can start typing here</p>")
-
-    console.log({ noteContent })
 
     if (!activeNoteId) {
         return <div>Select a note from sidebar</div>
