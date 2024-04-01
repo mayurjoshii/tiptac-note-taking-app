@@ -17,3 +17,27 @@
 .tiptapEditorContainer{
     height: 100%;
 }
+
+.noteTitleInput{
+    border: 1px solid #8F7062;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.editorContent{
+    border: 1px solid red;
+    display: flex;
+
+    & > div:first-child{
+        flex: 1;
+        outline: none;
+        border-radius: 4px;
+        padding: 0px 4px;
+        background-color: #fff;
+        transition: all 200ms;
+
+        &:focus{
+            background-color: #FAEAE3;
+        }
+    }
+}

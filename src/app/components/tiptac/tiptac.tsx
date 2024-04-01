@@ -59,12 +59,8 @@ const extensions = [
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
 ]
 
-export interface ITipTapEditorProps {
-  // content: string
-  // setContent: Dispatch<SetStateAction<string>>
-}
 
-export const TiptapEditor = (props: ITipTapEditorProps) => {
+export const TiptapEditor = () => {
   const [title, setTitle] = React.useState<string>("")
 
   const editor = useEditor({
@@ -84,7 +80,6 @@ export const TiptapEditor = (props: ITipTapEditorProps) => {
 
   const currentSelectedNote = notes.find(item => item.id === activeNoteId)
 
-  console.log("Current seelcted--", currentSelectedNote)
   React.useEffect(() => {
     if (!!currentSelectedNote?.id) {
       if (editor) {
@@ -97,7 +92,6 @@ export const TiptapEditor = (props: ITipTapEditorProps) => {
   React.useEffect(() => {
     if (editor) {
       if (currentSelectedNote?.id) {
-        console.log("Updating--", editor.getHTML())
         updateNote({
           id: currentSelectedNote.id,
           content: editor.getHTML(),
@@ -124,15 +118,17 @@ export const TiptapEditor = (props: ITipTapEditorProps) => {
         placeholder="Enter note title here"
         onChange={handleTitleChange}
         value={title}
+        className={style.noteTitleInput}
       />
       <EditorContent editor={editor} style={{
         marginTop: "20px",
         height: "500px",
         border: "1px solid #aaa",
-        borderRadius: "4px",
-        paddingLeft: "8px",
-        paddingRight: "8px"
+        borderRadius: "8px",
+        padding: "8px",
       }}
+        className={style.editorContent}
+
       />
       {/* <FloatingMenu>This is the floating menu</FloatingMenu> */}
       {/* <BubbleMenu>This is the bubble menu</BubbleMenu> */}

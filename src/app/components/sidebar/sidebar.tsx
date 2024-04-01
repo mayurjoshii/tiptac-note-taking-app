@@ -3,6 +3,7 @@ import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import style from './sidebar.css'
 import { RiDeleteBin3Line } from 'react-icons/ri'
+import { BiPlus } from 'react-icons/bi'
 import { useNoteActions } from "app/actions"
 import { v4 as uuidv4 } from 'uuid'
 
@@ -47,8 +48,8 @@ export const Sidebar = () => {
 
     return (
         <div className={style.container}>
-            <button onClick={handleNewNoteClick}>
-                Create new note
+            <button onClick={handleNewNoteClick} className={style.newNoteButton}>
+                Create new note <span><BiPlus /></span>
             </button>
             <div className={style.noteListContainer}>
                 {
