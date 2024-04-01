@@ -1,9 +1,6 @@
 import React from 'react';
 import style from './style.css';
-import { Header } from 'app/components/header';
-import { Main, Sidebar } from 'app/components';
-
-
+import { Header, Main, Sidebar } from 'app/components';
 export const Home = () => {
 
   return (
