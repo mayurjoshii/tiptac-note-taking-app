@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react'
-import { EditorContent, EditorProvider, FloatingMenu, useCurrentEditor, useEditor } from '@tiptap/react'
+import React from 'react'
+import { EditorContent, useCurrentEditor, useEditor } from '@tiptap/react'
 import style from './tiptac.css'
 import classNames from 'classnames'
 import StarterKit from '@tiptap/starter-kit'
