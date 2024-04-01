@@ -10,10 +10,6 @@ export namespace NoteActions {
     DELETE_NOTE = 'DELETE_NOTE',
     SET_ACTIVE_NOTE_ID = "SET_ACTIVE_NOTE_ID",
     REMOVE_ACTIVE_NOTE_ID = "REMOVE_ACTIVE_NOTE_ID",
-    // DELETE_TODO = 'DELETE_TODO',
-    // COMPLETE_TODO = 'COMPLETE_TODO',
-    // COMPLETE_ALL = 'COMPLETE_ALL',
-    // CLEAR_COMPLETED = 'CLEAR_COMPLETED'
   }
 
   export const saveNote = createAction<INote>(Type.SAVE_NOTE);
@@ -21,11 +17,6 @@ export namespace NoteActions {
   export const deleteNote = createAction<Pick<INote, 'id'>>(Type.DELETE_NOTE);
   export const setActiveNoteId = createAction<string>(Type.SET_ACTIVE_NOTE_ID)
   export const removeActiveNoteId = createAction(Type.REMOVE_ACTIVE_NOTE_ID)
-  // export const editTodo = createAction<PartialPick<TodoModel, 'id'>>(Type.EDIT_TODO);
-  // export const deleteTodo = createAction<TodoModel['id']>(Type.DELETE_TODO);
-  // export const completeTodo = createAction<TodoModel['id']>(Type.COMPLETE_TODO);
-  // export const completeAll = createAction(Type.COMPLETE_ALL);
-  // export const clearCompleted = createAction(Type.CLEAR_COMPLETED);
 }
 
 export type NoteActions = Omit<typeof NoteActions, 'Type'>;

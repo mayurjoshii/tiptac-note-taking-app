@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux"
 import style from './sidebar.css'
 import { RiDeleteBin3Line } from 'react-icons/ri'
 import { useNoteActions } from "app/actions"
+import { v4 as uuidv4 } from 'uuid'
 
 export const Sidebar = () => {
     const dispatch = useDispatch()
-    const { deleteNote } = useNoteActions(dispatch)
-    const { setActiveNoteId, removeActiveNoteId } = useNoteActions(dispatch)
+    const { saveNote, deleteNote, setActiveNoteId, removeActiveNoteId } = useNoteActions(dispatch)
 
     const { notesList, activeNoteId } = useSelector((state: RootState) => {
         return {
@@ -18,7 +18,15 @@ export const Sidebar = () => {
     })
 
     const handleNewNoteClick = () => {
+        const newNoteId = uuidv4()
 
+        saveNote({
+            content: "<p>This is a new note. Start editing here</p>",
+            id: newNoteId,
+            title: `Note ${notesList.length + 1}`
+        })
+
+        setActiveNoteId(newNoteId)
     }
 
     const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
