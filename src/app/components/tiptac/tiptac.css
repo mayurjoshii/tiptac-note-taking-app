@@ -1,6 +1,7 @@
 .menuBarContainer{
     display: flex;
     gap: 4px;
+    margin-top: 20px;
 }
 
 .menuBarButton{
@@ -10,8 +11,9 @@
 }
 
 .isActive{
-    color: red;
-    border-color: red;
+    border-color: #000;
+    background-color: #868282;
+    color: #fff;
 }
 
 .tiptapEditorContainer{
@@ -27,6 +29,7 @@
 .editorContent{
     border: 1px solid red;
     display: flex;
+    margin-top: 8px;
 
     & > div:first-child{
         flex: 1;

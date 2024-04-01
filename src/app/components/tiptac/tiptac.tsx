@@ -1,5 +1,5 @@
 import React from 'react'
-import { EditorContent, useCurrentEditor, useEditor } from '@tiptap/react'
+import { Editor, EditorContent, useCurrentEditor, useEditor } from '@tiptap/react'
 import style from './tiptac.css'
 import classNames from 'classnames'
 import StarterKit from '@tiptap/starter-kit'
@@ -11,12 +11,10 @@ import { useNoteActions } from 'app/actions'
 import { v4 as uuidv4 } from 'uuid'
 import { RootState } from 'app/reducers'
 
-const MenuBar = () => {
-  const { editor } = useCurrentEditor()
-
-  if (!editor) {
-    return null
-  }
+const MenuBar = (props: {
+  editor: Editor
+}) => {
+  const { editor } = props
 
   return (
     <div className={style.menuBarContainer}>
@@ -111,15 +109,19 @@ export const TiptapEditor = () => {
     setTitle(e.target.value)
   }
 
+  if (!editor) {
+    return null
+  }
+
   return (
     <div className={style.tiptapEditorContainer}>
-      <MenuBar />
       <input
         placeholder="Enter note title here"
         onChange={handleTitleChange}
         value={title}
         className={style.noteTitleInput}
       />
+      <MenuBar editor={editor} />
       <EditorContent editor={editor} style={{
         marginTop: "20px",
         height: "500px",
