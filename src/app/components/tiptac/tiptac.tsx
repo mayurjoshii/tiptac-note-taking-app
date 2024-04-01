@@ -1,5 +1,5 @@
 import React from 'react'
-import { Editor, EditorContent, useCurrentEditor, useEditor } from '@tiptap/react'
+import { Editor, EditorContent, useEditor } from '@tiptap/react'
 import style from './tiptac.css'
 import classNames from 'classnames'
 import StarterKit from '@tiptap/starter-kit'
